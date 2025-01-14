@@ -4,7 +4,9 @@ A simple docker compose container with Nginx, PHP 8.4 (cli + fpm), Node.js 20.x,
 
 ## How to use 
 
-- Create a .env file based on .env.sample and adjust it to your needs.
+- Create a .env file based on .env.sample and adjust it to fit your needs.
+    - cp .env.sample .env
+    - vim .env
 - Run "docker compose build" to build your php cli/fpm environment
 - Run "docker compose up -d" to pull images and launch your projet
 - Test with "docker compose exec cli bash"
