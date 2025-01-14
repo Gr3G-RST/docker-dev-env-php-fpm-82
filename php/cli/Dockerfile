@@ -15,7 +15,7 @@ ARG NODE_VERSION
 ENV NODE_VERSION ${NODE_VERSION}
 
 # Installing node
-RUN curl -sL https://deb.nodesource.com/setup_${NODE_VERSION} | bash -
+RUN curl -sL https://deb.nodesource.com/setup_${NODE_VERSION} | bash
 RUN apt-get -y install nodejs
 
 # Installing yarn using npm
