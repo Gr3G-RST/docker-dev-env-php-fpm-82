@@ -15,7 +15,7 @@ A simple docker compose container with Nginx, PHP 8.4 (cli + fpm), Node.js 20.x,
 
 - From the docker-compose.yml folder :
     - RUN : curl -sS https://get.symfony.com/cli/installer | bash
-    - RUN : export PATH="$HOME/.symfony/bin:$PATH"
+    - RUN : export PATH="$HOME/.symfony5/bin:$PATH"
     - RUN symfony new --webapp --version=7.2 project
  
 
