@@ -1,4 +1,5 @@
 # docker-dev-env-php-fpm-82
+
 A simple docker compose container with Nginx, PHP 8.2 (cli + fpm), Node.js 20.x, Mariadb 10, PhpMyAdmin
 
 ## How to use 
