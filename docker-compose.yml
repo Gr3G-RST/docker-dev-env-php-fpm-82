@@ -6,13 +6,11 @@ services:
         PHP_ENABLE_AMQP: ${PHP_ENABLE_AMQP}
         PHP_ENABLE_REDIS: ${PHP_ENABLE_REDIS}
         PHP_ENABLE_XDEBUG: ${PHP_ENABLE_XDEBUG}
-        PHP_ENABLE_MONGODB: ${PHP_ENABLE_MONGODB}
     # image: php${PHP_VERSION}-fpm:${DOCKER_TAG}
     # environment:
     #     PHP_ENABLE_AMQP: ${PHP_ENABLE_AMQP}
     #     PHP_ENABLE_REDIS: ${PHP_ENABLE_REDIS}
     #     PHP_ENABLE_XDEBUG: ${PHP_ENABLE_XDEBUG}
-    #     PHP_ENABLE_MONGODB: ${PHP_ENABLE_MONGODB}
     ports:
       - ${PHP_FPM_PORT}:9000
     volumes:
@@ -30,19 +28,16 @@ services:
         PHP_ENABLE_AMQP: ${PHP_ENABLE_AMQP}
         PHP_ENABLE_REDIS: ${PHP_ENABLE_REDIS}
         PHP_ENABLE_XDEBUG: ${PHP_ENABLE_XDEBUG}
-        PHP_ENABLE_MONGODB: ${PHP_ENABLE_MONGODB}
     # image: php${PHP_VERSION}-cli:${DOCKER_TAG}
     # environment:
     #     PHP_ENABLE_AMQP: ${PHP_ENABLE_AMQP}
     #     PHP_ENABLE_REDIS: ${PHP_ENABLE_REDIS}
     #     PHP_ENABLE_XDEBUG: ${PHP_ENABLE_XDEBUG}
-    #     PHP_ENABLE_MONGODB: ${PHP_ENABLE_MONGODB}
     working_dir: /var/www/project
     volumes:
       - ./project:/var/www/project
     depends_on:
       - mariadb
-      # - mongodb
       # - redis
 
   nginx:
