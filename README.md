@@ -1,4 +1,4 @@
-# docker-dev-env-php-fpm-82
+# ddocker_dev-env_php-fpm_sf7
 
 A simple docker compose container with Nginx, PHP 8.4 (cli + fpm), Node.js 20.x, Mariadb 10, PhpMyAdmin, Symfony 7
 

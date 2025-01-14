@@ -1,7 +1,7 @@
 services:
   fpm:
     build:
-      context: php${PHP_VERSION}/fpm
+      context: php/fpm
       args:
         PHP_ENABLE_AMQP: ${PHP_ENABLE_AMQP}
         PHP_ENABLE_REDIS: ${PHP_ENABLE_REDIS}
@@ -24,7 +24,7 @@ services:
 
   cli:
     build:
-      context: php${PHP_VERSION}/cli
+      context: php/cli
       args:
         NODE_VERSION: ${NODE_VERSION}
         PHP_ENABLE_AMQP: ${PHP_ENABLE_AMQP}

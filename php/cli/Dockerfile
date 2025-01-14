@@ -49,7 +49,7 @@ RUN IPE_DONT_ENABLE=1 install-php-extensions amqp \
 ADD conf/php.ini /usr/local/etc/php/php.ini
 
 # Installing symfony cli
-RUN wget https://get.symfony.com/cli/installer -O - | bash
+RUN curl -sS https://get.symfony.com/cli/installer | bash
 RUN echo 'export PATH="$HOME/.symfony/bin:$PATH"' >> ~/.bashrc
 
 
