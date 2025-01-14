@@ -1,6 +1,4 @@
-FROM php:8.2-fpm
-
-LABEL maintainer="ReadyMadeHost http://readymadehost.com"
+FROM php:8.4-cli
 
 # Installing required packages
 RUN apt-get update
@@ -11,6 +9,17 @@ RUN apt-get install --no-install-recommends -y procps \
 	zip \
 	unzip \
 	wget
+RUN apt-get install --no-install-recommends -y mariadb-client
+
+ARG NODE_VERSION
+ENV NODE_VERSION ${NODE_VERSION}
+
+# Installing node
+RUN curl -sL https://deb.nodesource.com/setup_${NODE_VERSION} | bash -
+RUN apt-get -y install nodejs
+
+# Installing yarn using npm
+RUN npm install --global yarn
 
 # Installing extensions
 RUN curl -L https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions \
@@ -34,11 +43,15 @@ RUN install-php-extensions \
 # Installing other extensions but enabled dynamically
 RUN IPE_DONT_ENABLE=1 install-php-extensions amqp \
 	redis \
-	mongodb \
 	xdebug
 
 # Updating php.ini
 ADD conf/php.ini /usr/local/etc/php/php.ini
+
+# Installing symfony cli
+RUN wget https://get.symfony.com/cli/installer -O - | bash
+RUN echo 'export PATH="$HOME/.symfony/bin:$PATH"' >> ~/.bashrc
+
 
 ARG PHP_ENABLE_AMQP
 ENV PHP_ENABLE_AMQP ${PHP_ENABLE_AMQP}
@@ -46,11 +59,8 @@ ARG PHP_ENABLE_REDIS
 ENV PHP_ENABLE_REDIS ${PHP_ENABLE_REDIS}
 ARG PHP_ENABLE_XDEBUG
 ENV PHP_ENABLE_XDEBUG ${PHP_ENABLE_XDEBUG}
-ARG PHP_ENABLE_MONGODB
-ENV PHP_ENABLE_MONGODB ${PHP_ENABLE_MONGODB}
 
-# Add scripts
 ADD docker-entrypoint.sh /root/docker-entrypoint.sh
 RUN chmod +x /root/docker-entrypoint.sh
 
-CMD ["/root/docker-entrypoint.sh", "php-fpm", "-F"]
+CMD ["/root/docker-entrypoint.sh", "bash"]
