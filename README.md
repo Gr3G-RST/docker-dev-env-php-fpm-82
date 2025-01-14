@@ -7,12 +7,14 @@ A simple docker compose container with Nginx, PHP 8.4 (cli + fpm), Node.js 20.x,
 - Create a .env file based on .env.sample and adjust it to your needs.
 - Run "docker compose build" to build your php cli/fpm environment
 - Run "docker compose up -d" to pull images and launch your projet
+- Test with "docker compose exec cli bash"
 
 ## Setting up a Symfony 7.2 project
 
 - From the docker-compose.yml folder :
-    - docker compose exec cli bash
-    - symfony new --webapp --version=7.2 project
+    - RUN : curl -sS https://get.symfony.com/cli/installer | bash
+    - RUN : export PATH="$HOME/.symfony/bin:$PATH"
+    - RUN symfony new --webapp --version=7.2 project
  
 
 ## Access your project
