@@ -15,9 +15,4 @@ if [ ${PHP_ENABLE_XDEBUG} -eq "1" ]; then
     echo "-- php xdebug extension enabled"
 fi
 
-if [ ${PHP_ENABLE_MONGODB} -eq "1" ]; then
-    docker-php-ext-enable mongodb
-    echo "-- php mongodb extension enabled"
-fi
-
 exec "$@"
