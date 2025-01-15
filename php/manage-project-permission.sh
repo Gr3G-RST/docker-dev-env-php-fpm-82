@@ -3,8 +3,6 @@
 echo "------------------------------------------"
 echo "Running manage-project-permission.sh (mpp)"
 
-PROJECT_ROOT="/var/www/project"
-
 echo "- setting 777 to" ${PROJECT_ROOT}
 chmod -R 777 ${PROJECT_ROOT}
 
