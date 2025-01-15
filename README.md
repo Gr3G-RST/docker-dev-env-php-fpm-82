@@ -4,11 +4,13 @@ A simple docker compose container with Nginx, PHP 8.4 (cli + fpm), Node.js 20.x,
 
 ## How to use 
 
+- On macOS, install Orb Stack instead of official Docker Desktop: https://orbstack.dev/ 
+  This will enhance performance on shared volumes.
 - Create a .env file based on .env.sample and adjust it to fit your needs.
     - cp .env.sample .env
     - vim .env
 - Run "docker compose build" to build your php cli/fpm environment
-- Run "docker compose up -d" to pull images and launch your projet
+- Run "docker compose up -d" to pull images and launch your project
 - Test with "docker compose exec cli bash"
 
 ## Setting up a Symfony 7.2 project
