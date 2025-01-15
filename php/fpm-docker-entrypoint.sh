@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 if [ ${PHP_ENABLE_AMQP} -eq "1" ]; then
     docker-php-ext-enable amqp
