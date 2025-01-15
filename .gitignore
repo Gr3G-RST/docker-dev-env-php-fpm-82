@@ -3,4 +3,7 @@
 */.DS_Store
 .old
 data/mariadb
+
+# Delete the following line once you
+# removed the starter .git and reinit your repository
 project
