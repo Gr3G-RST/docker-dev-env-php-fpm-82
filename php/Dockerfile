@@ -54,6 +54,8 @@ chmod +x /usr/local/bin/install-php-extensions
 # Customize this list to fit your project needs
 install-php-extensions \
     @composer-${COMPOSER_VERSION} \
+    amqp \
+    apcu \
     bcmath \
     exif \
     fileinfo \
@@ -67,12 +69,11 @@ install-php-extensions \
     openssl \
     pcntl \
     pdo_mysql \
-    simplexml \
-    xsl \
-    zip \
-    amqp \
     redis-${PHP_EXTENSION_REDIS_VERSION} \
-    xdebug
+    simplexml \
+    xdebug \
+    xsl \
+    zip
 EOF
 
 ###################
@@ -89,12 +90,10 @@ SHELL ["/bin/bash", "-e", "-o", "pipefail", "-c"]
 # Configs
 RUN ln -sf ${PHP_INI_DIR}/php.ini-development ${PHP_INI_DIR}/php.ini
 COPY --link conf.d/app.dev.ini ${PHP_INI_DIR}/conf.d/zz-app.ini
-COPY --link cli-docker-entrypoint.sh /root/docker-entrypoint.sh
 
 RUN <<EOF
 chown -R www-data:www-data /var/www
 echo "www-data ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/www-data
-chmod +x /root/docker-entrypoint.sh
 EOF
 
 # Switch to www-data user
@@ -121,10 +120,12 @@ curl -sS https://get.symfony.com/cli/installer | bash
 sudo mv $HOME/.symfony5/bin/symfony /usr/local/bin/symfony
 EOF
 
-CMD ["/root/docker-entrypoint.sh", "bash"]
+CMD ["bash"]
 
-# Create a volume for the project
-VOLUME /var/www/project
+WORKDIR /var/www
+
+# Create a volume
+VOLUME /var/www
 
 ###################
 # PHP FPM for dev #
@@ -143,5 +144,7 @@ USER www-data
 
 CMD ["php-fpm", "-F"]
 
-# Create a volume for the project
-VOLUME /var/www/project
+WORKDIR /var/www
+
+# Create a volume
+VOLUME /var/www

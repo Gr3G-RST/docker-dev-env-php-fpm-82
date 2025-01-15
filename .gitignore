@@ -3,6 +3,9 @@
 */.DS_Store
 .old
 data/mariadb
+/.composer/
+/.symfony5/
+/.bash_history
 
 # Delete the following line once you
 # removed the starter .git and reinit your repository

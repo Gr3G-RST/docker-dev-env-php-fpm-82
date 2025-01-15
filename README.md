@@ -25,7 +25,7 @@ Node.js, Composer, Symfony cli, etc. on your host machine.
 
 ## Setting up a Symfony 7.2 project
 
-- Execute `docker compose run --rm --no-deps cli symfony new --no-git --webapp --version=7.2 .` to create a new Symfony project 
+- Execute `docker compose run --rm --no-deps cli symfony new --no-git --webapp --version=7.2 project` to create a new Symfony project 
   but do not initialize a git repository which will be done later.
 - Launch the project with `docker compose up -d`
 
@@ -41,3 +41,13 @@ This repository is a starter template for **one** project. You must remove the g
 
 - Webserver (Nginx) : http://localhost:8080
 - PhpMyAdmin : http://localhost:8180
+
+
+## Reset this starter template
+
+If you want to reset this starter template to its original state, you can run the following commands:
+
+```shell
+docker compose down
+rm -rf .composer .symfony5 project .bash_history .env
+```
