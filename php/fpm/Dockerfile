@@ -1,4 +1,6 @@
-FROM php:8.4-fpm
+ARG PHP_VERSION
+
+FROM php:${PHP_VERSION}-fpm-bookworm
 
 # Installing required packages
 RUN apt-get update

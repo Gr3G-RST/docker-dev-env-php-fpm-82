@@ -1,4 +1,6 @@
-FROM php:8.4-cli
+ARG PHP_VERSION
+
+FROM php:${PHP_VERSION}-cli-bookworm
 
 # Installing required packages
 RUN apt-get update
