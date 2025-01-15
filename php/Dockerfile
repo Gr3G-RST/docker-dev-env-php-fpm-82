@@ -3,11 +3,11 @@ ARG NODE_VERSION
 ARG COMPOSER_VERSION=2.8.1
 ARG PHP_EXTENSION_INSTALLER_VERSION=2.6.0
 ARG PHP_EXTENSION_REDIS_VERSION=6.1.0
-ARG PHP_ENABLE_AMQP
-ARG PHP_ENABLE_REDIS
-ARG PHP_ENABLE_XDEBUG
 ARG UID=1000
 
+##################
+# PHP Base image #
+##################
 
 FROM php:${PHP_VERSION}-fpm-bookworm AS base-php
 
@@ -15,9 +15,6 @@ ARG UID
 
 LABEL org.opencontainers.image.authors="roussatgregory@gmail.com"
 
-ENV PHP_ENABLE_AMQP ${PHP_ENABLE_AMQP}
-ENV PHP_ENABLE_REDIS ${PHP_ENABLE_REDIS}
-ENV PHP_ENABLE_XDEBUG ${PHP_ENABLE_XDEBUG}
 ENV PROJECT_ROOT "/var/www/project"
 
 SHELL ["/bin/bash", "-e", "-o", "pipefail", "-c"]
@@ -54,6 +51,7 @@ curl -L https://github.com/mlocati/docker-php-extension-installer/releases/lates
 chmod +x /usr/local/bin/install-php-extensions
 
 # Installing PHP extensions
+# Customize this list to fit your project needs
 install-php-extensions \
     @composer-${COMPOSER_VERSION} \
     bcmath \
@@ -71,14 +69,15 @@ install-php-extensions \
     pdo_mysql \
     simplexml \
     xsl \
-    zip
-
-IPE_DONT_ENABLE=1 install-php-extensions \
+    zip \
     amqp \
     redis-${PHP_EXTENSION_REDIS_VERSION} \
     xdebug
 EOF
 
+###################
+# PHP CLI for dev #
+###################
 
 FROM base-php AS php-cli
 
@@ -124,8 +123,12 @@ EOF
 
 CMD ["/root/docker-entrypoint.sh", "bash"]
 
+# Create a volume for the project
 VOLUME /var/www/project
 
+###################
+# PHP FPM for dev #
+###################
 
 FROM base-php AS php-fpm
 
@@ -133,11 +136,12 @@ SHELL ["/bin/bash", "-e", "-o", "pipefail", "-c"]
 
 # Configs
 COPY --link conf.d/app.dev.ini ${PHP_INI_DIR}/conf.d/zz-app.ini
-COPY --link fpm-docker-entrypoint.sh /root/docker-entrypoint.sh
 RUN ln -sf ${PHP_INI_DIR}/php.ini-development ${PHP_INI_DIR}/php.ini
-RUN chmod +x /root/docker-entrypoint.sh
 
 # Switch to www-data user
 USER www-data
 
-CMD ["/root/docker-entrypoint.sh", "php-fpm", "-F"]
+CMD ["php-fpm", "-F"]
+
+# Create a volume for the project
+VOLUME /var/www/project

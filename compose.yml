@@ -1,3 +1,4 @@
+name: ${PROJECT_NAME}
 services:
   fpm:
     build:
@@ -6,9 +7,6 @@ services:
       args:
         UID: ${UID}
         PHP_VERSION: ${PHP_VERSION}
-        PHP_ENABLE_AMQP: ${PHP_ENABLE_AMQP}
-        PHP_ENABLE_REDIS: ${PHP_ENABLE_REDIS}
-        PHP_ENABLE_XDEBUG: ${PHP_ENABLE_XDEBUG}
     ports:
       - ${PHP_FPM_PORT}:9000
     volumes:
@@ -26,9 +24,6 @@ services:
         UID: ${UID}
         PHP_VERSION: ${PHP_VERSION}
         NODE_VERSION: ${NODE_VERSION}
-        PHP_ENABLE_AMQP: ${PHP_ENABLE_AMQP}
-        PHP_ENABLE_REDIS: ${PHP_ENABLE_REDIS}
-        PHP_ENABLE_XDEBUG: ${PHP_ENABLE_XDEBUG}
     working_dir: /var/www/project
     volumes:
       - ./project:/var/www/project
