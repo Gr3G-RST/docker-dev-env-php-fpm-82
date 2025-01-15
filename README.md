@@ -49,5 +49,5 @@ If you want to reset this starter template to its original state, you can run th
 
 ```shell
 docker compose down
-rm -rf .composer .symfony5 project .bash_history .env
+sudo rm -rf .composer .symfony5 project .bash_history .env data/mariadb
 ```
